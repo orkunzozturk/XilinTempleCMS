@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "活动"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "eventDate": {
+      "type": "datetime",
+      "required": false
+    },
+    "Image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "Title": {
+      "type": "string"
+    },
+    "Paragraph": {
+      "type": "richtext"
+    }
+  }
+}
