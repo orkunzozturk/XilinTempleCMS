@@ -4,7 +4,8 @@
   "info": {
     "singularName": "card",
     "pluralName": "cards",
-    "displayName": "内容卡"
+    "displayName": "内容卡",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -22,12 +23,19 @@
       "maxLength": 50
     },
     "Image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Category": {
+      "type": "enumeration",
+      "enum": [
+        "Quote 名言",
+        "Relax 放松"
+      ]
     }
   }
 }
