@@ -9,24 +9,24 @@ module.exports = {
       // console.log("NEW CONTENT CREATED" + event.params.data.Paragraph);
 
       // another trial
-      // const { createCanvas } = require("canvas");
-      // const fs = require("fs");
+      const { createCanvas } = require("canvas");
+      const fs = require("fs");
 
-      // // Dimensions for the image
-      // const width = 1200;
-      // const height = 627;
+      // Dimensions for the image
+      const width = 1200;
+      const height = 627;
 
-      // // Instantiate the canvas object
-      // const canvas = createCanvas(width, height);
-      // const context = canvas.getContext("2d");
+      // Instantiate the canvas object
+      const canvas = createCanvas(width, height);
+      const context = canvas.getContext("2d");
 
-      // // Fill the rectangle with purple
-      // context.fillStyle = "#764abc";
-      // context.fillRect(0, 0, width, height);
+      // Fill the rectangle with purple
+      context.fillStyle = "#764abc";
+      context.fillRect(0, 0, width, height);
 
-      // // Write the image to file
-      // const buffer = canvas.toBuffer("image/png");
-      // fs.writeFileSync("./image.png", buffer);
+      // Write the image to file
+      const buffer = canvas.toBuffer("image/png");
+      fs.writeFileSync("./image.png", buffer);
 
 
     }
