@@ -10,4 +10,8 @@ module.exports = ({ env }) => ({
       salt: env('TRANSFER_TOKEN_SALT'),
     },
   },
+  watchIgnoreFiles: [
+    './poster.jpg',
+    '**/poster.jpg'
+  ]
 });

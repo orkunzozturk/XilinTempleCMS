@@ -36,6 +36,12 @@
         "Quote 名言",
         "Relax 放松"
       ]
+    },
+    "ImageUrl": {
+      "type": "string"
+    },
+    "PosterUrl": {
+      "type": "string"
     }
   }
 }
