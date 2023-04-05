@@ -1,7 +1,4 @@
-// const { resourceLimits } = require("worker_threads");
 // lifecycles.js
-// const { FormData } = require("formdata-node");
-// const fetch = require("node-fetch");
 const fs = require("fs");
 
 const api_url = "http://127.0.0.1:1337";
