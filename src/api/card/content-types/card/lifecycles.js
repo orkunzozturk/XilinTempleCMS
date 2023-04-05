@@ -2,9 +2,16 @@
 // lifecycles.js
 // const { FormData } = require("formdata-node");
 // const fetch = require("node-fetch");
+const fs = require("fs");
 
 const api_url = "http://127.0.0.1:1337";
+// var dir = './temp';
+
+// if (!fs.existsSync(dir)){
+//     fs.mkdirSync(dir);
+// }
 module.exports = {
+
   async afterUpdate(event) {
     console.log("running after update");
     let dataSource = event.params.data;
@@ -27,7 +34,6 @@ module.exports = {
 
       // create a canvas
       const { loadImage, createCanvas } = require("canvas");
-      const fs = require("fs");
 
       // Dimensions for the image
       const width = 378;
@@ -63,11 +69,11 @@ module.exports = {
           // place the canvas to a png buffer
           const buffer = canvas.toBuffer("image/png");
           // save the buffer as a file
-          fs.writeFileSync(`./temp/${dataSource.Headline}.png`, buffer);
+          fs.writeFileSync(`./.tmp/${dataSource.Headline}.png`, buffer);
           // upload the created file to strapi
           const mime = require('mime-types'); //used to detect file's mime type
           const fileName = `${dataSource.Headline}.png`;
-          const filePath = `./temp/${fileName}`
+          const filePath = `./.tmp/${fileName}`
           const stats = fs.statSync(filePath)
           return strapi.plugins.upload.services.upload.upload({
             populate: '*',
@@ -163,11 +169,11 @@ module.exports = {
           // place the canvas to a png buffer
           const buffer = canvas.toBuffer("image/png");
           // save the buffer as a file
-          fs.writeFileSync(`./temp/${dataSource.Headline}.png`, buffer);
+          fs.writeFileSync(`./.tmp/${dataSource.Headline}.png`, buffer);
           // upload the created file to strapi
           const mime = require('mime-types'); //used to detect file's mime type
           const fileName = `${dataSource.Headline}.png`;
-          const filePath = `./temp/${fileName}`
+          const filePath = `./.tmp/${fileName}`
           const stats = fs.statSync(filePath)
           return strapi.plugins.upload.services.upload.upload({
             populate: '*',
