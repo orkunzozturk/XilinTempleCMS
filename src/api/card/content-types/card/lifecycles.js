@@ -5,11 +5,7 @@
 const fs = require("fs");
 
 const api_url = "http://127.0.0.1:1337";
-// var dir = './temp';
 
-// if (!fs.existsSync(dir)){
-//     fs.mkdirSync(dir);
-// }
 module.exports = {
 
   async afterUpdate(event) {
