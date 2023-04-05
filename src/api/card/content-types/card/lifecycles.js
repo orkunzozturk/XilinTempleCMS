@@ -11,6 +11,7 @@ module.exports = {
       dataSource.Paragraph &&
       dataSource.Paragraph?.length > 0
     ) {
+
       // get the image url associated with post:
       const imageResource = await strapi.entityService.findOne(
         "plugin::upload.file",
@@ -58,16 +59,15 @@ module.exports = {
           ctx.textAlign = "center";
           ctx.fillText(dataSource.Paragraph, width / 2, height / 2);
 
-          // place the canvas to a JPEG buffer
-          const buffer = canvas.toBuffer("image/jpeg");
+          // place the canvas to a png buffer
+          const buffer = canvas.toBuffer("image/png");
           // save the buffer as a file
-          fs.writeFileSync(`./temp/${dataSource.Headline}.jpg`, buffer);
-
+          fs.writeFileSync(`./temp/${dataSource.Headline}.png`, buffer);
+          // upload the created file to strapi
           const mime = require('mime-types'); //used to detect file's mime type
-          const fileName = `${dataSource.Headline}.jpg`;
+          const fileName = `${dataSource.Headline}.png`;
           const filePath = `./temp/${fileName}`
           const stats = fs.statSync(filePath)
-          console.log("card id is: " + event.params.where.id);
           return strapi.plugins.upload.services.upload.upload({
             populate: '*',
             data:{}, //mandatory declare the data(can be empty), otherwise it will give you an undefined error.
@@ -77,16 +77,13 @@ module.exports = {
               type: mime.lookup(filePath), // mime type of the file
               size: stats.size,
             },
-            // ref: "api::card:card",
-            // refId: event.params.where.id,
-            // field: "poster"
         });
 
 
 
         })
         .then((response) => {
-          console.log("File uploaded succesfully", response);
+          // console.log("File uploaded succesfully", response);
           const cardId = event.params.where.id
           const fileId = response[0].id;
           const fileUrl = response[0].url
@@ -97,26 +94,12 @@ module.exports = {
               PosterUrl: api_url + fileUrl
             }
           }
-          );
+          )
+
         })
         .catch((err) => {
           console.error(err);
         });
-
-
-
-
-      // const useentity = await strapi.entityService.create("plugin::upload.file", {
-      //   data:{},
-      //   files: {
-      //     path: './poster.jpg',
-      //     name: 'poster.jpg',
-      //     type: mime.lookup(filePath), // mime type of the file
-      //     size: stats.size,
-      //   }
-      //   }
-      // );
-
 
 
 
