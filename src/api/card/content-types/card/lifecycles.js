@@ -69,6 +69,33 @@ module.exports = {
         });
 
 
+        const mime = require('mime-types'); //used to detect file's mime type
+        const fileName = 'poster.jpg';
+        const filePath = `./${fileName}`
+        const stats = fs.statSync(filePath)
+        await strapi.plugins.upload.services.upload.upload({
+          data:{}, //mandatory declare the data(can be empty), otherwise it will give you an undefined error.
+          files: {
+          path: './poster.jpg',
+          name: 'poster1.jpg',
+          type: mime.lookup(filePath), // mime type of the file
+          size: stats.size,
+        },
+      });
+
+      // const useentity = await strapi.entityService.create("plugin::upload.file", {
+      //   data:{},
+      //   files: {
+      //     path: './poster.jpg',
+      //     name: 'poster.jpg',
+      //     type: mime.lookup(filePath), // mime type of the file
+      //     size: stats.size,
+      //   }
+      //   }
+      // );
+
+
+
 
     }
   },
