@@ -60,28 +60,51 @@ module.exports = {
 
           // place the canvas to a JPEG buffer
           const buffer = canvas.toBuffer("image/jpeg");
-
           // save the buffer as a file
-          fs.writeFileSync("./poster.jpg", buffer);
+          fs.writeFileSync(`./temp/${dataSource.Headline}.jpg`, buffer);
+
+          const mime = require('mime-types'); //used to detect file's mime type
+          const fileName = `${dataSource.Headline}.jpg`;
+          const filePath = `./temp/${fileName}`
+          const stats = fs.statSync(filePath)
+          console.log("card id is: " + event.params.where.id);
+          return strapi.plugins.upload.services.upload.upload({
+            populate: '*',
+            data:{}, //mandatory declare the data(can be empty), otherwise it will give you an undefined error.
+            files: {
+              path: filePath,
+              name: fileName,
+              type: mime.lookup(filePath), // mime type of the file
+              size: stats.size,
+            },
+            // ref: "api::card:card",
+            // refId: event.params.where.id,
+            // field: "poster"
+        });
+
+
+
+        })
+        .then((response) => {
+          console.log("File uploaded succesfully", response);
+          const cardId = event.params.where.id
+          const fileId = response[0].id;
+          const fileUrl = response[0].url
+          return strapi.query("api::card.card").update({
+            where: {id:cardId},
+            data:{
+              Poster: fileId,
+              PosterUrl: api_url + fileUrl
+            }
+          }
+          );
         })
         .catch((err) => {
           console.error(err);
         });
 
 
-        const mime = require('mime-types'); //used to detect file's mime type
-        const fileName = 'poster.jpg';
-        const filePath = `./${fileName}`
-        const stats = fs.statSync(filePath)
-        await strapi.plugins.upload.services.upload.upload({
-          data:{}, //mandatory declare the data(can be empty), otherwise it will give you an undefined error.
-          files: {
-          path: './poster.jpg',
-          name: 'poster1.jpg',
-          type: mime.lookup(filePath), // mime type of the file
-          size: stats.size,
-        },
-      });
+
 
       // const useentity = await strapi.entityService.create("plugin::upload.file", {
       //   data:{},

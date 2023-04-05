@@ -11,7 +11,6 @@ module.exports = ({ env }) => ({
     },
   },
   watchIgnoreFiles: [
-    './poster.jpg',
-    '**/poster.jpg'
+    '**/temp/**'
   ]
 });
