@@ -136,16 +136,54 @@ module.exports = {
       const canvas = createCanvas(width, height);
       const ctx = canvas.getContext("2d");
 
-      // Fill the rectangle with white
-      ctx.fillStyle = "#a14124";
-      ctx.fillRect(0, 0, width, height);
-      ctx.fillText("hello world", width, height);
+      const backgroundImage = await loadImage(dataSource.ImageUrl);
+      const imageAspectRatio = backgroundImage.width / backgroundImage.height;
+      const canvasAspectRatio = width / height;
+      // Determine the aspect ratio of the image
+      console.log("BG image aspect ratio is: " + imageAspectRatio + ", canvas aspect ratio is: " + canvasAspectRatio);
+      // Calculate the scaled width and height of the image based on the canvas size and aspect ratio
+      let scaledWidth, scaledHeight;
+      if (imageAspectRatio > canvasAspectRatio) {
+        scaledHeight = height
+        scaledWidth = scaledHeight * imageAspectRatio;
+      } else {
+        scaledHeight = height;
+        scaledWidth = scaledHeight * imageAspectRatio;
+      }
+      // Set the focus position for the background image (values between 0 and 1)
+      const focusX = 0.5; // 0 = left, 0.5 = center, 1 = right
+      const focusY = 0.5; // 0 = top, 0.5 = center, 1 = bottom
+      // Calculate the position of the top-left corner of the image based on the focus position
+      let x = 0, y = 0;
 
+      if (focusX == 0.5) {
+        x = (width-scaledWidth)/2;
+        console.log("x focus is center");
+      } else if (focusX == 1) {
+        x = width-scaledWidth;
+        console.log("x focus is right");
+      } else if (focusX == 0) {
+        x= (width-scaledWidth) / 2
+        console.log("y focus is left");
+      }
+
+      if (focusY == 0.5) {
+        y = (height-scaledHeight)/2;
+        console.log("y focus is center");
+      } else if (focusY == 1) {
+        y = height-scaledHeight;
+        console.log("y focus is right");
+      } else if (focusY == 0) {
+        y= (height-scaledHeight) / 2
+        console.log("y focus is left");
+      }
       // load the background image
       loadImage(dataSource.ImageUrl)
         .then((image) => {
           // draw the background image on the canvas
-          ctx.drawImage(image, 0, 0, width, height);
+          // ctx.drawImage(image, 0, 0, width, height);
+
+          ctx.drawImage(image,  x, y, scaledWidth ,scaledHeight);
 
           // add Headline to the image
           ctx.fillStyle = "white";
