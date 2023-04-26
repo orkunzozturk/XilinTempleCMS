@@ -14,8 +14,7 @@
   "attributes": {
     "Headline": {
       "type": "string",
-      "required": true,
-      "maxLength": 8
+      "required": true
     },
     "Paragraph": {
       "type": "richtext",
@@ -44,11 +43,12 @@
       "type": "string"
     },
     "Poster": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     }
   }
 }
