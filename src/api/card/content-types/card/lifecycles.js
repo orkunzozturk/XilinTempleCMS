@@ -36,8 +36,8 @@ module.exports = {
       registerFont('static/OpenSans-Light.ttf', { family: 'OpenSansLight' })
       registerFont('static/OpenSans-SemiBold.ttf', { family: 'OpenSansSemiBold' })
       // Dimensions for the image
-      const width = 378;
-      const height = 662.438;
+      const width = 428;
+      const height = 835;
       // Instantiate the canvas object
       const canvas = createCanvas(width, height);
       const ctx = canvas.getContext("2d");
@@ -114,7 +114,7 @@ module.exports = {
           ctx.fillRect(0,0,canvas.width,canvas.height);
 
           // logo
-          ctx.drawImage(logo,  151, 593, 77 , 77);
+          ctx.drawImage(logo,  (width/2)-77/2, height*0.9, 77 , 77);
 
           // function easeInOut(t) {return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1}
 
@@ -159,11 +159,11 @@ module.exports = {
           ctx.shadowOffsetY = 4;
           ctx.font = '36px "TsangerYuYangTBold"';
           ctx.textAlign = "center";
-          ctx.fillText("日签", width / 2, 493);
+          ctx.fillText("日签", width / 2, height*0.75);
 
           // Add Paragraph to image
           ctx.fillStyle = "black";
-          ctx.font = 'normal 20px "TsangerYuYangTThin"';
+          ctx.font = '20px "TsangerYuYangTThin"';
           ctx.textAlign = "center";
           // ctx.fillText(dataSource.Paragraph, width / 2, 534);
 
@@ -207,7 +207,7 @@ module.exports = {
             context.fillText(line, x, y);
 
         }
-          wrapText(ctx, dataSource.Paragraph, width / 2, 534, 300, 25);
+          wrapText(ctx, dataSource.Paragraph, width / 2, height*0.81, width*0.8, 25);
 
           // place the canvas to a png buffer
           const buffer = canvas.toBuffer("image/png");
@@ -280,16 +280,22 @@ module.exports = {
       registerFont('static/OpenSans-Light.ttf', { family: 'OpenSansLight' })
       registerFont('static/OpenSans-SemiBold.ttf', { family: 'OpenSansSemiBold' })
       // Dimensions for the image
-      const width = 378;
-      const height = 662.438;
-
+      const width = 428;
+      const height = 835;
       // Instantiate the canvas object
       const canvas = createCanvas(width, height);
       const ctx = canvas.getContext("2d");
+      // draw white BG
+      // Draw a rectangle with a white fill onto the canvas
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, height);
 
+      // resize bg image based on aspect ratio
       const backgroundImage = await loadImage(dataSource.ImageUrl);
       const logo = await loadImage('static/xilinshuyuan.jpg');
+
       const imageAspectRatio = backgroundImage.width / backgroundImage.height;
+      //get canvas aspect ratio, which is: 378/662.438=0.57
       const canvasAspectRatio = width / height;
       // Determine the aspect ratio of the image
       console.log("BG image aspect ratio is: " + imageAspectRatio + ", canvas aspect ratio is: " + canvasAspectRatio);
@@ -303,32 +309,35 @@ module.exports = {
         scaledHeight = scaledWidth / imageAspectRatio;
       }
       // Set the focus position for the background image (values between 0 and 1)
+      // TODO: Add focus selection to the frontend
       const focusX = 0.5; // 0 = left, 0.5 = center, 1 = right
-      const focusY = 0.5; // 0 = top, 0.5 = center, 1 = bottom
+      const focusY = 0; // 0 = top, 0.5 = center, 1 = bottom
       // Calculate the position of the top-left corner of the image based on the focus position
       let x = 0, y = 0;
 
       if (focusX == 0.5) {
         x = (width-scaledWidth)/2;
-        console.log("x focus is center");
+        // console.log("x focus is center");
       } else if (focusX == 1) {
         x = width-scaledWidth;
-        console.log("x focus is right");
+        // console.log("x focus is right");
       } else if (focusX == 0) {
         x= (width-scaledWidth) / 2
-        console.log("y focus is left");
+        // console.log("y focus is left");
       }
 
       if (focusY == 0.5) {
         y = (height-scaledHeight)/2;
-        console.log("y focus is center");
+        // console.log("y focus is center");
       } else if (focusY == 1) {
         y = height-scaledHeight;
-        console.log("y focus is right");
+        // console.log("y focus is bottom");
       } else if (focusY == 0) {
-        y= (height-scaledHeight) / 2
-        console.log("y focus is left");
+        y= 0
+        // console.log("y focus is top");
       }
+
+
       // load the background image
       loadImage(dataSource.ImageUrl)
         .then((image) => {
@@ -349,8 +358,7 @@ module.exports = {
           ctx.fillRect(0,0,canvas.width,canvas.height);
 
           // logo
-          ctx.drawImage(logo,  151, 593, 77 , 77);
-
+          ctx.drawImage(logo,  (width/2)-77/2, height*0.9, 77 , 77);
           // function easeInOut(t) {return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1}
 
           // get calendar elements
@@ -370,6 +378,7 @@ module.exports = {
           ctx.roundRect(0, 34, 92, 92, [4])
           ctx.fill()
           // day number
+          // TODO: Add fillstyle color to frontend
           ctx.fillStyle = "black";
           ctx.font = '56px "OpenSansSemiBold"';
           ctx.textAlign = "left";
@@ -394,11 +403,11 @@ module.exports = {
           ctx.shadowOffsetY = 4;
           ctx.font = '36px "TsangerYuYangTBold"';
           ctx.textAlign = "center";
-          ctx.fillText("日签", width / 2, 493);
+          ctx.fillText("日签", width / 2, height*0.75);
 
           // Add Paragraph to image
           ctx.fillStyle = "black";
-          ctx.font = 'normal 20px "TsangerYuYangTThin"';
+          ctx.font = '20px "TsangerYuYangTThin"';
           ctx.textAlign = "center";
           // ctx.fillText(dataSource.Paragraph, width / 2, 534);
 
@@ -442,7 +451,7 @@ module.exports = {
             context.fillText(line, x, y);
 
         }
-          wrapText(ctx, dataSource.Paragraph, width / 2, 534, 300, 25);
+          wrapText(ctx, dataSource.Paragraph, width / 2, height*0.81, width*0.8, 25);
 
           // place the canvas to a png buffer
           const buffer = canvas.toBuffer("image/png");
