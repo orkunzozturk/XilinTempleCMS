@@ -2,9 +2,11 @@
 const fs = require("fs");
 const { loadImage, registerFont, createCanvas } = require("canvas");
 const mime = require('mime-types'); //used to detect file's mime type
+const { env } = require("process");
 
 
 const api_url = "http://localhost:1337";
+const public_url = "https://content.xilinshuyuan.cn"
 module.exports = {
 
   async afterUpdate(event) {
@@ -24,7 +26,7 @@ module.exports = {
         }
       );
       // convert the relative path as an absolute path to the ImageUrl field of the card content-type:
-      const ImageUrl = api_url + JSON.parse(JSON.stringify(imageResource)).url;
+      const ImageUrl = public_url + JSON.parse(JSON.stringify(imageResource)).url;
       dataSource.ImageUrl = ImageUrl;
 
       // create a canvas
@@ -240,7 +242,7 @@ module.exports = {
             where: {id:cardId},
             data:{
               Poster: fileId,
-              PosterUrl: api_url + fileUrl
+              PosterUrl: public_url + fileUrl
             }
           }
           )
@@ -269,7 +271,7 @@ module.exports = {
       const imageResourceUrl = dataSource.Image.url
       console.log("image resource: " + imageResourceUrl);
       // // convert the relative path as an absolute path to the ImageUrl field of the card content-type:
-      const imageUrl = api_url + imageResourceUrl
+      const imageUrl = public_url + imageResourceUrl
       dataSource.ImageUrl = imageUrl;
       console.log("Data image source link: " + dataSource.ImageUrl);
 
@@ -484,7 +486,7 @@ module.exports = {
           where: {id:cardId},
           data:{
             Poster: fileId,
-            PosterUrl: api_url + fileUrl,
+            PosterUrl: public_url + fileUrl,
             ImageUrl: imageUrl
           }
         })
