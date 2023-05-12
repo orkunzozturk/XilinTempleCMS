@@ -4,7 +4,7 @@ const { loadImage, registerFont, createCanvas } = require("canvas");
 const mime = require('mime-types'); //used to detect file's mime type
 
 
-const api_url = "http://127.0.0.1:1337";
+const api_url = "http://localhost:1337";
 module.exports = {
 
   async afterUpdate(event) {
