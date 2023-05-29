@@ -14,8 +14,8 @@ module.exports = {
     console.log("running after update");
     let dataSource = event.params.data;
     if (
-      dataSource.Paragraph &&
-      dataSource.Paragraph?.length > 0
+      dataSource.automaticPoster &&
+      dataSource.automaticPoster == true
     ) {
 
       // get the image url associated with post:
@@ -261,9 +261,6 @@ module.exports = {
         .catch((err) => {
           console.error(err);
         });
-
-
-
     }
   },
 
@@ -273,8 +270,8 @@ module.exports = {
     // console.log(dataSource);
     // console.log(event.params);
     if (
-      dataSource.Paragraph &&
-      dataSource.Paragraph?.length > 0
+      dataSource.automaticPoster &&
+      dataSource.automaticPoster == true
     ) {
 
       // get the image url associated with post:

@@ -14,17 +14,17 @@
   "attributes": {
     "Headline": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "Paragraph": {
       "type": "richtext",
-      "required": true,
+      "required": false,
       "maxLength": 50
     },
     "Image": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ]
@@ -49,6 +49,11 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "automaticPoster": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }
